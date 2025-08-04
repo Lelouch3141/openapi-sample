@@ -1,0 +1,158 @@
+openapi: 3.0.0
+info:
+  title: サンプル用API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+security:
+  - bearerAuth: []
+# controllerの粒度
+tags: 
+  - name: users
+    description: ユーザー情報API
+  - name: items
+    description: 商品情報API
+
+paths:
+  /users:
+    get:
+      operationId: getUsers
+      summary: ユーザー一覧取得
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      tags: 
+        - user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      operationId: createUser
+      summary: ユーザー登録
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      tags: 
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /users/{id}:
+    get:
+      operationId: getUserById
+      summary: ユーザー詳細取得
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      tags: 
+        - user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      operationId: updateUserById
+      summary: ユーザー更新
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      tags: 
+        - user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      operationId: deleteUserById
+      summary: ユーザー削除
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      tags: 
+        - user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /items:
+    $ref: paths/items.yml
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        認証用のJWTトークンを利用したBearer認証です。
+
+  schemas:
+    User:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        id:
+          description: ユーザーID
+          type: integer
+          format: uuid
+          minimum: 1
+          example : 1
+        name:
+          description: 氏名
+          type: string
+          minLength: 3
+          maxLength: 50
+          example: John Lennon
+        email:
+          description: メールアドレス
+          type: string
+          format: email
+          example: aaa@sample.com
+        gender:
+          description: 性別
+          $ref: schemas/enum/Gender.yml
+        age:
+          description: 年齢
+          type: integer
+          example: 20

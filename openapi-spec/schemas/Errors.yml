@@ -1,0 +1,14 @@
+title: Errors
+description: Erros
+type: object
+properties:
+  errorCode:
+    $ref: ./enum/ErrorCode.yml
+  errors:
+    tyoe: array
+    items:
+      $ref: ErrorItem.yml
+  required:
+    - errors
+
+

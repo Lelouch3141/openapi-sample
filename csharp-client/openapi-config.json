@@ -1,0 +1,6 @@
+{
+  "targetFramework": "net8.0",
+  "packageName": "sample",
+  "library": "httpclient",
+  "nullableReferenceTypes": true
+}

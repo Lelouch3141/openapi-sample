@@ -1,0 +1,275 @@
+openapi: 3.0.0
+info:
+  title: サンプル用API
+  version: 1.0.0
+servers:
+- url: http://localhost:8080
+security:
+- bearerAuth: []
+tags:
+- description: ユーザー情報API
+  name: users
+- description: 商品情報API
+  name: items
+paths:
+  /users:
+    get:
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      operationId: getUsers
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/User"
+                type: array
+          description: OK
+      summary: ユーザー一覧取得
+      tags:
+      - user
+    post:
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          description: Create
+      summary: ユーザー登録
+      tags:
+      - user
+  /users/{id}:
+    delete:
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      operationId: deleteUserById
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "204":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          description: No Content
+      summary: ユーザー削除
+      tags:
+      - user
+    get:
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      operationId: getUserById
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          description: OK
+      summary: ユーザー詳細取得
+      tags:
+      - user
+    put:
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      operationId: updateUserById
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          description: Updated
+      summary: ユーザー更新
+      tags:
+      - user
+  /items:
+    get:
+      description: 商品一覧を取得する
+      operationId: getItems
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Items"
+          description: 商品一覧の取得に成功
+      summary: 商品一覧取得API
+      tags:
+      - items
+components:
+  schemas:
+    User:
+      example:
+        gender: 0
+        name: John Lennon
+        id: 1
+        email: aaa@sample.com
+        age: 20
+      properties:
+        id:
+          description: ユーザーID
+          example: 1
+          format: uuid
+          minimum: 1
+          type: integer
+        name:
+          description: 氏名
+          example: John Lennon
+          maxLength: 50
+          minLength: 3
+          type: string
+        email:
+          description: メールアドレス
+          example: aaa@sample.com
+          format: email
+          type: string
+        gender:
+          $ref: "#/components/schemas/Gender"
+        age:
+          description: 年齢
+          example: 20
+          type: integer
+      required:
+      - email
+      - name
+      type: object
+    Items:
+      description: 商品リスト
+      example:
+        totalCount: 2
+        items:
+        - price: 5980
+          name: 新世代ゲーム機
+          id: 101
+          manufacturer:
+            country: 日本
+            name: 新進気鋭のメーカーさん
+        - price: 5980
+          name: 新世代ゲーム機
+          id: 101
+          manufacturer:
+            country: 日本
+            name: 新進気鋭のメーカーさん
+      properties:
+        totalCount:
+          description: 総商品数
+          example: 2
+          type: integer
+        items:
+          description: 商品一覧
+          items:
+            $ref: "#/components/schemas/Item"
+          type: array
+      required:
+      - items
+      - totalCount
+      title: Items
+      type: object
+    Gender:
+      description: 性別
+      enum:
+      - 0
+      - 1
+      - 2
+      title: Gender
+      type: integer
+      x-enum-varnames:
+      - male
+      - female
+      - others
+      x-enum-descriptions:
+      - 男性
+      - 女性
+      - それ以外
+    Item:
+      description: 商品
+      example:
+        price: 5980
+        name: 新世代ゲーム機
+        id: 101
+        manufacturer:
+          country: 日本
+          name: 新進気鋭のメーカーさん
+      properties:
+        id:
+          description: 商品ID
+          example: 101
+          type: integer
+        name:
+          description: 商品名
+          example: 新世代ゲーム機
+          type: string
+        price:
+          description: 価格(円)
+          example: 5980
+          type: integer
+        manufacturer:
+          $ref: "#/components/schemas/Item_manufacturer"
+      required:
+      - id
+      - manufacturer
+      - name
+      - price
+      title: Item
+      type: object
+    Item_manufacturer:
+      description: 製造元情報
+      example:
+        country: 日本
+        name: 新進気鋭のメーカーさん
+      properties:
+        name:
+          description: メーカー名
+          example: 新進気鋭のメーカーさん
+          type: string
+        country:
+          description: 国
+          example: 日本
+          type: string
+      required:
+      - country
+      - name
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: JWT
+      description: |
+        認証用のJWTトークンを利用したBearer認証です。
+      scheme: bearer
+      type: http
+

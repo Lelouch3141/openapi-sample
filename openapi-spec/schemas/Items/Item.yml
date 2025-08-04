@@ -1,0 +1,36 @@
+title: Item
+description: 商品
+type: object
+required:
+  - id
+  - name
+  - price
+  - manufacturer
+properties:
+  id:
+    description: 商品ID
+    type: integer
+    example: 101
+  name:
+    description: 商品名
+    type: string
+    example: 新世代ゲーム機
+  price:
+    description: 価格(円)
+    type: integer
+    example: 5980
+  manufacturer:
+    description: 製造元情報
+    type: object
+    required:
+      - name
+      - country
+    properties:
+      name:
+        description: メーカー名
+        type: string
+        example: 新進気鋭のメーカーさん
+      country:
+        description: 国
+        type: string
+        example: 日本

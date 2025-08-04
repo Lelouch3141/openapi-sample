@@ -1,0 +1,13 @@
+get:
+  summary: 商品一覧取得API
+  description: 商品一覧を取得する
+  tags: 
+  - items
+  operationId: getItems
+  responses:
+    '200':
+      description: 商品一覧の取得に成功
+      content:
+        application/json:
+          schema:
+            $ref: ../schemas/Items/Items.yml

@@ -1,0 +1,17 @@
+title: Items
+description: 商品リスト
+
+type: object
+required:
+  - totalCount
+  - items
+properties:
+  totalCount:
+    description: 総商品数
+    type: integer
+    example: 2
+  items:
+    description: 商品一覧
+    type: array
+    items:
+      $ref: ./Item.yml

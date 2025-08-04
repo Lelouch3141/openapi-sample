@@ -1,0 +1,10 @@
+title: Error
+description: Error
+type: object
+properties:
+  message:
+    type: string
+    description: Message
+    example: Not authorized
+  required:
+    - message

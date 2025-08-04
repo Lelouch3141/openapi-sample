@@ -1,0 +1,12 @@
+title: ErrorCode
+description: エラーコード
+type: string
+enum:
+  - UnexpectedError
+  - DataInconsistency
+x-enum-varnames:
+  - UNEXPECTED_ERROR
+  - DATA_INCONSISTENCY
+x-enum-descriptions:
+  - 内部サーバーエラー
+  - データ不整合

@@ -1,0 +1,12 @@
+# --- Eclipse ---
+.metadata/
+Servers/
+.project
+.classpath
+.settings/
+
+# --- Node.js / React ---
+node_modules/
+dist/
+build/
+.env

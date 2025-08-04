@@ -1,0 +1,15 @@
+title: Gender
+description: 性別
+type: integer
+enum:
+  - 0
+  - 1
+  - 2
+x-enum-varnames:
+  - male
+  - female
+  - others
+x-enum-descriptions:
+  - 男性
+  - 女性
+  - それ以外
