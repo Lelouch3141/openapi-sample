@@ -13,23 +13,24 @@ tags:
   - name: items
     description: 商品情報API
 
+# endpointごとの定義
 paths:
-  /users:
-    get:
-      operationId: getUsers
-      summary: ユーザー一覧取得
-      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
-      tags: 
+  /users: # endpointのpath
+    get: # method-type
+      operationId: getUsers # controllerの関数名
+      summary: ユーザー一覧取得 # 概要(javadocに記載される
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。 #詳細説明(javadocに記載される)
+      tags: # 設定するtag
         - user
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
+      responses: # 返却するresponse定義
+        '200': # 200の場合(各ステータスコードについて併記できる)
+          description: OK # responseの概要
+          content: # responseの中身
+            application/json: # content-type
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
+                type: array # 型定義
+                items: # itemsというschemaを切る
+                  $ref: '#/components/schemas/User' # 参照(定義はcomponents/schemas/Userを参照の意)
     post:
       operationId: createUser
       summary: ユーザー登録
@@ -116,7 +117,9 @@ paths:
   /items:
     $ref: paths/items.yml
 
+# モデル定義など(リクエスト、レスポンス、enumなどの)
 components:
+  # 認証についての説明(mock-serverにも気持ちの認証機構が再現される)
   securitySchemes:
     bearerAuth:
       type: http
@@ -125,19 +128,20 @@ components:
       description: |
         認証用のJWTトークンを利用したBearer認証です。
 
+  # モデル定義
   schemas:
-    User:
-      type: object
-      required:
+    User: # Userモデルを定義
+      type: object # 型：オブジェクト
+      required: # 必須の項目を設定(複数指定可能)
         - name
         - email
-      properties:
-        id:
-          description: ユーザーID
-          type: integer
-          format: uuid
-          minimum: 1
-          example : 1
+      properties: # objectの中身の定義
+        id: # idプロパティを定義
+          description: ユーザーID # プロパティの説明
+          type: integer # 型定義
+          format: uuid # format定義
+          minimum: 1 # 最小桁数(簡単なvalidation定義になる)
+          example : 1 # 最小桁数(簡単なvalidation定義になる)
         name:
           description: 氏名
           type: string
@@ -156,3 +160,21 @@ components:
           description: 年齢
           type: integer
           example: 20
+        # 型定義
+          # integer: 整数
+            # int32
+            # int64
+          # number: 浮動小数
+            # float
+            # double
+          # string: 文字列
+            # byte
+            # binary
+            # date
+            # date-time
+            # email
+            # hostname
+            # uri
+          # boolean: 真偽
+          # array: 配列
+          # object: オブジェクト

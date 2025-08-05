@@ -1,5 +1,10 @@
 # openAPI 導入手順/運用手順
 
+## このリポジトリについて
+openAPI導入のサンプルです。
+backendはspringboot(Java,maven)、frontendはReact(typescript, axios)想定のサンプルを置いています。
+まだドキュメントは殴り書き程度なことにご留意ください。
+
 ## 前提
 
 - [openAPI](https://swagger.io/specification/)とは、RESTful API の仕様書を記述するための標準仕様
@@ -27,7 +32,7 @@
 - `generated-resources`タスクを実行すると`./target/generated-sources` 配下にコードが生成される
 - api ごとに interface が切られるので、implements して中身を実装
 
-  - interface
+  - interface(自動生成されたコード)
 
   ```Java
   public interface UsersApi {
@@ -76,7 +81,7 @@
   }
   ```
 
-  - 実装
+  - 実装(手作業)
 
   ```Java
   public class Users implements UserApi {
@@ -101,7 +106,7 @@
   }
   ```
 
-  - 型定義
+  - 型定義(自動生成されたコード)
 
   ```Java
   /**
@@ -191,7 +196,58 @@
 - (参考)https://openapi-generator.tech/docs/generators/typescript-axios
 
 - openapi-generator の適用
-- http request のコード
+- 自動生成されたコード
+    ```ts
+    /**
+     * ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+     * @summary ユーザー登録
+     * @param {UserApiCreateUserRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public createUser(requestParameters: UserApiCreateUserRequest, options?: RawAxiosRequestConfig) {
+        return UserApiFp(this.configuration).createUser(requestParameters.user, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+ * 
+ * @export
+ * @interface User
+ */
+export interface User {
+    /**
+     * ユーザーID
+     * @type {number}
+     * @memberof User
+     */
+    'id'?: number;
+    /**
+     * 氏名
+     * @type {string}
+     * @memberof User
+     */
+    'name': string;
+    /**
+     * メールアドレス
+     * @type {string}
+     * @memberof User
+     */
+    'email': string;
+    /**
+     * 
+     * @type {Gender}
+     * @memberof User
+     */
+    'gender'?: Gender;
+    /**
+     * 年齢
+     * @type {number}
+     * @memberof User
+     */
+    'age'?: number;
+}
+    ```
+- http request の実装例(手作業)
 
   - axios parameter creator
     - fetch 前提
@@ -255,8 +311,7 @@
 ## c#
 
 - (参考)https://openapi-generator.tech/docs/generators/csharp
-- HTTP リクエスト
-
+- HTTP リクエスト(自動生成されたコード)
   ```csharp
   public interface IItemsApiSync : IApiAccessor
       {
