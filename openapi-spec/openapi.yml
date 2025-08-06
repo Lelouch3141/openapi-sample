@@ -116,6 +116,26 @@ paths:
                 $ref: '#/components/schemas/User'
   /items:
     $ref: paths/items.yml
+  # 参照用のAPI定義
+  /_references/dummy:
+    get:
+      operationId: dummy
+      summary: dummy
+      description: 型定義の参照用のpath定義。
+      tags:
+        - ignore
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  # 以降この箇所のpropertiesで無理やり参照する
+                  greeting:
+                    $ref: '#/components/schemas/Greeting'
+                  
 
 # モデル定義など(リクエスト、レスポンス、enumなどの)
 components:
@@ -129,7 +149,7 @@ components:
         認証用のJWTトークンを利用したBearer認証です。
 
   # モデル定義
-  schemas:
+  schemas:      
     User: # Userモデルを定義
       type: object # 型：オブジェクト
       required: # 必須の項目を設定(複数指定可能)
@@ -178,3 +198,18 @@ components:
           # boolean: 真偽
           # array: 配列
           # object: オブジェクト
+    Greeting:
+        description: あいさつ
+        type: integer
+        enum:
+          - 0
+          - 1
+          - 2
+        x-enum-varnames:
+          - good_morning
+          - hello
+          - good_knight
+        x-enum-descriptions:
+          - おはよう
+          - こんにちは
+          - おやすみ

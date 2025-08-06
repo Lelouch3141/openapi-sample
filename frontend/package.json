@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "generate-code": "openapi-generator-cli generate -g typescript-axios -i ../openapi-spec/openapi.yml -o ./generated-sources --config openapi-config.json",
+    "generate-code": "openapi-generator-cli generate -g typescript-axios -i ../openapi-spec/openapi.yml -o ./generated --config openapi-config.json",
     "mock" : "prism mock ../openapi-spec/openapi.yml -p 8080"
   },
   "dependencies": {
