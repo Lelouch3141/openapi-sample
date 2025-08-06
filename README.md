@@ -210,42 +210,42 @@ backendはspringboot(Java,maven)、frontendはReact(typescript, axios)想定の�
         return UserApiFp(this.configuration).createUser(requestParameters.user, options).then((request) => request(this.axios, this.basePath));
     }
     /**
- * 
- * @export
- * @interface User
- */
-export interface User {
-    /**
-     * ユーザーID
-     * @type {number}
-     * @memberof User
-     */
-    'id'?: number;
-    /**
-     * 氏名
-     * @type {string}
-     * @memberof User
-     */
-    'name': string;
-    /**
-     * メールアドレス
-     * @type {string}
-     * @memberof User
-     */
-    'email': string;
-    /**
      * 
-     * @type {Gender}
-     * @memberof User
-     */
-    'gender'?: Gender;
-    /**
-     * 年齢
-     * @type {number}
-     * @memberof User
-     */
-    'age'?: number;
-}
+    * @export
+    * @interface User
+    */
+    export interface User {
+        /**
+         * ユーザーID
+        * @type {number}
+        * @memberof User
+        */
+        'id'?: number;
+        /**
+         * 氏名
+        * @type {string}
+        * @memberof User
+        */
+        'name': string;
+        /**
+         * メールアドレス
+        * @type {string}
+        * @memberof User
+        */
+        'email': string;
+        /**
+         * 
+        * @type {Gender}
+        * @memberof User
+        */
+        'gender'?: Gender;
+        /**
+         * 年齢
+        * @type {number}
+        * @memberof User
+        */
+        'age'?: number;
+    }
     ```
 - http request の実装例(手作業)
 
@@ -289,14 +289,14 @@ export interface User {
 
 - 設定値
 
-```
+```json
 
 {
-"withSeparateModelsAndApi": true, // タグごとに整理
-"useSingleRequestParameter": true, //引数を object にまとめる
-"stringEnums": true, //文字列の列挙型を enum で管理
-"apiPackage": "api",　// http リクエストのコードの出力パス
-"modelPackage": "models" //型定義のコードの出力パス
+    "withSeparateModelsAndApi": true, // タグごとに整理
+    "useSingleRequestParameter": true, //引数を object にまとめる
+    "stringEnums": true, //文字列の列挙型を enum で管理
+    "apiPackage": "api",　// http リクエストのコードの出力パス
+    "modelPackage": "models" //型定義のコードの出力パス
 }
 
 ```
@@ -399,7 +399,8 @@ export interface User {
 1. openAPI の定義を更新
 2. 仕様書として出力
 3. 各使用先で最新を取得
-   - Git の submodule 想定
+   - Git の submodule
+   - 静的ホスティングしてdownload(do)
 4. 各使用先でコード生成(用意したコマンドを叩くのみ)
 
 ### 仕様書の生成
@@ -416,3 +417,39 @@ export interface User {
 - root の openapi.yml のみに記載するとファイルが膨れ上がってメンテナンスが悪いため、#ref で定義ファイルは分割する
   - paths/：エンドポイントの定義
   - schamas/：型定義
+
+
+## todo
+- openapiの記法のみに絞った解説
+  - 基本編
+    - tags
+    - paths
+    - schemas
+    - responses
+    - requests
+    - ref
+    - operationId
+    - type
+  - 詳細編
+    - deprecated
+    - allof
+- 編集方法
+  - vscode-extentions
+    - swagger-preview
+- rule
+  - ref
+  - enum
+  - error
+  - requestやresponseで使わない型定義
+  - websocket
+- htmlの管理
+  - redoc
+  - swagger-ui
+  - download button
+  - http request sample
+- preview
+- GUIは余裕があれば
+- READMEの用意
+- sample_code
+  - c sharp
+- postmanの恩恵
