@@ -444,6 +444,7 @@ backendはspringboot(Java,maven)、frontendはReact(typescript, axios)想定の�
   - websocket
 - htmlの管理
   - redoc
+    - bundleの観点からredocが良い
   - swagger-ui
   - download button
   - http request sample
