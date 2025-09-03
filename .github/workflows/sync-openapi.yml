@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'openapi-spec/dist/**'
+      - 'openapi-spec/**'
 
 jobs:
   backend-generate:
