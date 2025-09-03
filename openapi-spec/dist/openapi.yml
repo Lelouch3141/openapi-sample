@@ -1,0 +1,240 @@
+openapi: 3.0.0
+info:
+  title: サンプル用API
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+security:
+  - bearerAuth: []
+tags:
+  - name: users
+    description: ユーザー情報API
+  - name: items
+    description: 商品情報API
+paths:
+  /users:
+    get:
+      operationId: getUsers
+      summary: ユーザー一覧取得
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      tags:
+        - user
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+    post:
+      operationId: createUser
+      summary: ユーザー登録
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      tags:
+        - user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Create
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /users/{id}:
+    get:
+      operationId: getUserById
+      summary: ユーザー詳細取得
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      tags:
+        - user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    put:
+      operationId: updateUserById
+      summary: ユーザー更新
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      tags:
+        - user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    delete:
+      operationId: deleteUserById
+      summary: ユーザー削除
+      description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+      tags:
+        - user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No Content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /items:
+    get:
+      summary: 商品一覧取得API
+      description: 商品一覧を取得する
+      tags:
+        - items
+      operationId: getItems
+      responses:
+        '200':
+          description: 商品一覧の取得に成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Items'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: |
+        認証用のJWTトークンを利用したBearer認証です。
+  schemas:
+    User:
+      type: object
+      required:
+        - name
+        - email
+      properties:
+        id:
+          description: ユーザーID
+          type: integer
+          format: uuid
+          minimum: 1
+          example: 1
+        name:
+          description: 氏名
+          type: string
+          minLength: 3
+          maxLength: 50
+          example: John Lennon
+        email:
+          description: メールアドレス
+          type: string
+          format: email
+          example: aaa@sample.com
+        gender:
+          description: 性別
+          $ref: '#/components/schemas/Gender'
+        age:
+          description: 年齢
+          type: integer
+          example: 20
+    Gender:
+      title: Gender
+      description: 性別
+      type: integer
+      enum:
+        - 0
+        - 1
+        - 2
+      x-enum-varnames:
+        - male
+        - female
+        - others
+      x-enum-descriptions:
+        - 男性
+        - 女性
+        - それ以外
+    Item:
+      title: Item
+      description: 商品
+      type: object
+      required:
+        - id
+        - name
+        - price
+        - manufacturer
+      properties:
+        id:
+          description: 商品ID
+          type: integer
+          example: 101
+        name:
+          description: 商品名
+          type: string
+          example: 新世代ゲーム機
+        price:
+          description: 価格(円)
+          type: integer
+          example: 5980
+        explanation:
+          description: 説明
+          type: string
+          example: 最強です
+        manufacturer:
+          description: 製造元情報
+          type: object
+          required:
+            - name
+            - country
+          properties:
+            name:
+              description: メーカー名
+              type: string
+              example: 新進気鋭のメーカーさん
+            country:
+              description: 国
+              type: string
+              example: 日本
+    Items:
+      title: Items
+      description: 商品リスト
+      type: object
+      required:
+        - totalCount
+        - items
+      properties:
+        totalCount:
+          description: 総商品数
+          type: integer
+          example: 2
+        items:
+          description: 商品一覧
+          type: array
+          items:
+            $ref: '#/components/schemas/Item'
