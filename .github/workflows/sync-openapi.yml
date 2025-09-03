@@ -1,0 +1,73 @@
+name: Sync OpenAPI Spec to Client
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'openapi-spec/dist/**'
+
+jobs:
+  backend-generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Cache Maven
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: maven-
+
+      - name: Run Maven build (Java + npm codegen)
+        run: |
+          cd backend
+          mvn -B clean package
+
+  sync-react:
+    runs-on: ubuntu-latest
+    needs: backend-generate
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get commit message
+        id: commitmsg
+        run: |
+          first_line=$(echo "${{ github.event.head_commit.message }}" | head -n1)
+          echo "title=$first_line" >> $GITHUB_OUTPUT
+
+      - name: Checkout React repo
+        uses: actions/checkout@v4
+        with:
+          repository: Lelouch3141/openapi-githubactions-sample
+          token: ${{ secrets.GH_PAT }}
+          path: react-repo
+
+      - name: Copy OpenAPI spec
+        run: |
+          rm -rf react-repo/openapi-spec
+          mkdir -p react-repo/openapi-spec
+          cp -r openapi-spec/dist/* react-repo/openapi-spec/
+
+      - name: Generate code (React)
+        run: |
+          cd react-repo/openapi-spec
+          npm ci
+          npm run generate-code
+
+      - name: Create PR (React)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          path: react-repo
+          token: ${{ secrets.GH_PAT }}
+          commit-message: "chore: sync OpenAPI spec from backend"
+          branch: chore/update-openapi-spec
+          title: "${{ steps.commitmsg.outputs.title }}"
+          body: "This PR updates the OpenAPI spec and regenerates code."
