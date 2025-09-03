@@ -135,8 +135,53 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>	
-		</plugins>
-	</build>
-
+			</plugin>
+			<!-- Node/npm を Maven から叩く -->
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.15.0</version>
+				<executions>
+					<!-- Node.js & npm インストール -->
+					<execution>
+						<id>install-node-and-npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<phase>generate-sources</phase>
+						<configuration>
+							<nodeVersion>v20.0.0</nodeVersion>
+							<npmVersion>10.0.0</npmVersion>
+							<workingDirectory>../openapi-spec</workingDirectory>
+							<installDirectory>../openapi-spec</installDirectory>
+						</configuration>
+					</execution>
+					 <!-- npm ci -->
+					 <execution>
+						 <id>npm-install</id>
+					 	<goals>
+					 		<goal>npm</goal>
+					 	</goals>
+					 	<phase>generate-sources</phase>
+					 	<configuration>
+					 		<arguments>ci</arguments>
+					 		<workingDirectory>../openapi-spec</workingDirectory>
+					 	</configuration>
+					 </execution>
+					 <!-- npm run generate-code -->
+					 <execution>
+					 	<id>npm-generate-code</id>
+					 	<goals>
+					 		<goal>npm</goal>
+					 	</goals>
+					 	<phase>generate-sources</phase>
+					 	<configuration>
+					 		<arguments>run docs</arguments>
+					 		<workingDirectory>../openapi-spec</workingDirectory>
+					 	</configuration>
+					  </execution>
+				 </executions>
+			</plugin>
+		 </plugins>
+	 </build>
 </project>

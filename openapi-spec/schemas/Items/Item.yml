@@ -19,6 +19,10 @@ properties:
     description: 価格(円)
     type: integer
     example: 5980
+  explanation:
+    description: 説明
+    type: string
+    example: 最強です
   manufacturer:
     description: 製造元情報
     type: object

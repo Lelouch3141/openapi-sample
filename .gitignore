@@ -7,6 +7,6 @@ Servers/
 
 # --- Node.js / React ---
 node_modules/
-dist/
 build/
 .env
+node/
