@@ -1,13 +1,15 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 api.ts
+api/ignore-api.ts
 api/items-api.ts
 api/user-api.ts
 base.ts
 common.ts
 configuration.ts
 docs/Gender.md
+docs/Greeting.md
+docs/IgnoreApi.md
 docs/Item.md
 docs/ItemManufacturer.md
 docs/Items.md
@@ -17,6 +19,7 @@ docs/UserApi.md
 git_push.sh
 index.ts
 models/gender.ts
+models/greeting.ts
 models/index.ts
 models/item-manufacturer.ts
 models/item.ts

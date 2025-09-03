@@ -14,7 +14,26 @@
 
 
 
-export * from './api/ignore-api';
-export * from './api/items-api';
-export * from './api/user-api';
+/**
+ * あいさつ
+ * @export
+ * @enum {number}
+ */
+
+export enum Greeting {
+    /**
+    * おはよう
+    */
+    good_morning = 0,
+    /**
+    * こんにちは
+    */
+    hello = 1,
+    /**
+    * おやすみ
+    */
+    good_knight = 2
+}
+
+
 

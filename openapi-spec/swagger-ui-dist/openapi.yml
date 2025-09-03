@@ -21,7 +21,7 @@ paths:
       summary: ユーザー一覧取得 # 概要(javadocに記載される
       description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。 #詳細説明(javadocに記載される)
       tags: # 設定するtag
-        - users
+        - user
       responses: # 返却するresponse定義
         '200': # 200の場合(各ステータスコードについて併記できる)
           description: OK # responseの概要
@@ -36,7 +36,7 @@ paths:
       summary: ユーザー登録
       description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
       tags: 
-        - users
+        - user
       requestBody:
         required: true
         content:
@@ -56,7 +56,7 @@ paths:
       summary: ユーザー詳細取得
       description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
       tags: 
-        - users
+        - user
       parameters:
         - name: id
           in: path
@@ -75,7 +75,7 @@ paths:
       summary: ユーザー更新
       description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
       tags: 
-        - users
+        - user
       parameters:
         - name: id
           in: path
@@ -100,7 +100,7 @@ paths:
       summary: ユーザー削除
       description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
       tags: 
-        - users
+        - user
       parameters:
         - name: id
           in: path

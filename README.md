@@ -1,5 +1,10 @@
 # openAPI 導入手順/運用手順
 
+## このリポジトリについて
+openAPI導入のサンプルです。
+backendはspringboot(Java,maven)、frontendはReact(typescript, axios)想定のサンプルを置いています。
+まだドキュメントは殴り書き程度なことにご留意ください。
+
 ## 前提
 
 - [openAPI](https://swagger.io/specification/)とは、RESTful API の仕様書を記述するための標準仕様
@@ -27,7 +32,7 @@
 - `generated-resources`タスクを実行すると`./target/generated-sources` 配下にコードが生成される
 - api ごとに interface が切られるので、implements して中身を実装
 
-  - interface
+  - interface(自動生成されたコード)
 
   ```Java
   public interface UsersApi {
@@ -76,7 +81,7 @@
   }
   ```
 
-  - 実装
+  - 実装(手作業)
 
   ```Java
   public class Users implements UserApi {
@@ -101,7 +106,7 @@
   }
   ```
 
-  - 型定義
+  - 型定義(自動生成されたコード)
 
   ```Java
   /**
@@ -191,7 +196,58 @@
 - (参考)https://openapi-generator.tech/docs/generators/typescript-axios
 
 - openapi-generator の適用
-- http request のコード
+- 自動生成されたコード
+    ```ts
+    /**
+     * ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+     * @summary ユーザー登録
+     * @param {UserApiCreateUserRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public createUser(requestParameters: UserApiCreateUserRequest, options?: RawAxiosRequestConfig) {
+        return UserApiFp(this.configuration).createUser(requestParameters.user, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+    * @export
+    * @interface User
+    */
+    export interface User {
+        /**
+         * ユーザーID
+        * @type {number}
+        * @memberof User
+        */
+        'id'?: number;
+        /**
+         * 氏名
+        * @type {string}
+        * @memberof User
+        */
+        'name': string;
+        /**
+         * メールアドレス
+        * @type {string}
+        * @memberof User
+        */
+        'email': string;
+        /**
+         * 
+        * @type {Gender}
+        * @memberof User
+        */
+        'gender'?: Gender;
+        /**
+         * 年齢
+        * @type {number}
+        * @memberof User
+        */
+        'age'?: number;
+    }
+    ```
+- http request の実装例(手作業)
 
   - axios parameter creator
     - fetch 前提
@@ -233,14 +289,14 @@
 
 - 設定値
 
-```
+```json
 
 {
-"withSeparateModelsAndApi": true, // タグごとに整理
-"useSingleRequestParameter": true, //引数を object にまとめる
-"stringEnums": true, //文字列の列挙型を enum で管理
-"apiPackage": "api",　// http リクエストのコードの出力パス
-"modelPackage": "models" //型定義のコードの出力パス
+    "withSeparateModelsAndApi": true, // タグごとに整理
+    "useSingleRequestParameter": true, //引数を object にまとめる
+    "stringEnums": true, //文字列の列挙型を enum で管理
+    "apiPackage": "api",　// http リクエストのコードの出力パス
+    "modelPackage": "models" //型定義のコードの出力パス
 }
 
 ```
@@ -255,8 +311,7 @@
 ## c#
 
 - (参考)https://openapi-generator.tech/docs/generators/csharp
-- HTTP リクエスト
-
+- HTTP リクエスト(自動生成されたコード)
   ```csharp
   public interface IItemsApiSync : IApiAccessor
       {
@@ -344,7 +399,8 @@
 1. openAPI の定義を更新
 2. 仕様書として出力
 3. 各使用先で最新を取得
-   - Git の submodule 想定
+   - Git の submodule
+   - 静的ホスティングしてdownload(do)
 4. 各使用先でコード生成(用意したコマンドを叩くのみ)
 
 ### 仕様書の生成
@@ -361,3 +417,40 @@
 - root の openapi.yml のみに記載するとファイルが膨れ上がってメンテナンスが悪いため、#ref で定義ファイルは分割する
   - paths/：エンドポイントの定義
   - schamas/：型定義
+
+
+## todo
+- openapiの記法のみに絞った解説
+  - 基本編
+    - tags
+    - paths
+    - schemas
+    - responses
+    - requests
+    - ref
+    - operationId
+    - type
+  - 詳細編
+    - deprecated
+    - allof
+- 編集方法
+  - vscode-extentions
+    - swagger-preview
+- rule
+  - ref
+  - enum
+  - error
+  - requestやresponseで使わない型定義
+  - websocket
+- htmlの管理
+  - redoc
+    - bundleの観点からredocが良い
+  - swagger-ui
+  - download button
+  - http request sample
+- preview
+- GUIは余裕があれば
+- READMEの用意
+- sample_code
+  - c sharp
+- postmanの恩恵

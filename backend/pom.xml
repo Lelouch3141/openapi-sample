@@ -127,6 +127,10 @@
 								<useJakartaEe>true</useJakartaEe>
 								<useTags>true</useTags><!-- tag単位でcontrollerを切る設定 -->
 								<useOneofInterfaces>true</useOneofInterfaces><!-- oneof定義時、親スキーマをインターフェースとして生成 -->
+								<globalProperties>
+									<!-- "reference" タグを除いて他のタグだけを指定 -->
+									<api-tags>users,items</api-tags>
+								</globalProperties>
 							</configOptions>
 						</configuration>
 					</execution>
