@@ -180,6 +180,11 @@ components:
           description: 年齢
           type: integer
           example: 20
+        license:
+          description: 資格
+          type: string
+          example: '運転免許'
+        
         # 型定義
           # integer: 整数
             # int32
