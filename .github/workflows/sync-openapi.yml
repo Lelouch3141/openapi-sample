@@ -1,6 +1,8 @@
 name: Sync OpenAPI Spec to Client
 
+# どのタイミングで発火するか
 on:
+  # masterブランチにマージされた時、openapi-spec配下が変更されていた場合、下記のjobsを実行する
   push:
     branches:
       - master
@@ -12,6 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Get current time (for branch)
+        id: datetime
+        run: echo "now=$(date '+%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
 
       - name: Set up JDK
         uses: actions/setup-java@v4
@@ -27,24 +32,30 @@ jobs:
           restore-keys: maven-
 
       - name: Run Maven build (Java + npm codegen)
+        # generated-sourcesでnpm側のスクリプトも実行する
         run: |
           cd backend
           mvn generate-sources
 
-      - name: Create PR for generated sources
+      - name: Create PR (backend)
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GH_PAT }}
-          commit-message: "update: update generated sources"
-          branch: chore/update-generated-sources
-          title: "Update generated sources from OpenAPI"
-          body: "This PR updates the generated sources from the latest OpenAPI spec."
+          commit-message: "update: generated-sources(${{ steps.commitmsg.outputs.title }})"
+          branch: feature/update-generated-sources-${{ steps.datetime.outputs.now }}
+          title: "update: generated-sources (${{ steps.commitmsg.outputs.title }})"
+          body: |
+            openapiの定義更新を行い、apiとmodelのコードを自動生成しました。
+            backendのopenapi定義の更新がdevelopにマージされたタイミングで発火しています。
 
-  sync-react:
+  sync-front:
     runs-on: ubuntu-latest
     needs: backend-generate
     steps:
       - uses: actions/checkout@v4
+      - name: Get current time (for branch)
+        id: datetime
+        run: echo "now=$(date '+%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
 
       - name: Get commit message
         id: commitmsg
@@ -59,24 +70,26 @@ jobs:
           token: ${{ secrets.GH_PAT }}
           path: react-repo
 
-      - name: Copy OpenAPI spec
+      - name: Copy OpenAPI spec (front)
         run: |
           rm -rf react-repo/openapi-spec
           mkdir -p react-repo/openapi-spec
           cp -r openapi-spec/dist/* react-repo/openapi-spec/
 
-      - name: Generate code (React)
+      - name: Generate code (front)
         run: |
           cd react-repo/frontend
           npm i
           npm run generate-code
 
-      - name: Create PR (React)
+      - name: Create PR (front)
         uses: peter-evans/create-pull-request@v6
         with:
           path: react-repo
           token: ${{ secrets.GH_PAT }}
-          commit-message: "chore: sync OpenAPI spec from backend"
-          branch: chore/update-openapi-spec
-          title: "${{ steps.commitmsg.outputs.title }}"
-          body: "This PR updates the OpenAPI spec and regenerates code."
+          commit-message: "update: openapi/generate(${{ steps.commitmsg.outputs.title }})"
+          branch: feature/update-openapi-${{ steps.datetime.outputs.now }}
+          title: "update: openapi (${{ steps.commitmsg.outputs.title }})"
+          body: |
+            openapiの定義更新を行い、apiとmodelのコードを自動生成しました。
+            backendのopenapi定義の更新がdevelopにマージされたタイミングで発火しています。
