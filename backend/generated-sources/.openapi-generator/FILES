@@ -1,0 +1,13 @@
+README.md
+pom.xml
+src/main/java/com/example/demo/api/ApiUtil.java
+src/main/java/com/example/demo/api/IgnoreApi.java
+src/main/java/com/example/demo/api/ItemsApi.java
+src/main/java/com/example/demo/api/UsersApi.java
+src/main/java/com/example/demo/model/Dummy200Response.java
+src/main/java/com/example/demo/model/Gender.java
+src/main/java/com/example/demo/model/Greeting.java
+src/main/java/com/example/demo/model/Item.java
+src/main/java/com/example/demo/model/ItemManufacturer.java
+src/main/java/com/example/demo/model/Items.java
+src/main/java/com/example/demo/model/User.java

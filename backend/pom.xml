@@ -117,9 +117,9 @@
 						<configuration>
 							<inputSpec>${project.basedir}/../openapi-spec/openapi.yml</inputSpec> <!-- OpenAPI定義ファイルのパス -->
 							<generatorName>spring</generatorName>
-							<output>${project.build.directory}/generated-sources/openapi</output><!-- 出力先 -->
-							<apiPackage>com.example.api</apiPackage><!-- apiのpackage -->
-							<modelPackage>com.example.model</modelPackage><!-- modelのpackage -->
+							<output>${project.basedir}/generated-sources</output><!-- 出力先 -->
+							<apiPackage>com.example.demo.api</apiPackage><!-- apiのpackage -->
+							<modelPackage>com.example.demo.model</modelPackage><!-- modelのpackage -->
 							<configOptions>
 								<!-- https://openapi-generator.tech/docs/generators/spring/ -->
 								<interfaceOnly>true</interfaceOnly><!-- true:interfaceをimplementsして実装する。false：自動生成ごとに出力されるコードを都度編集する。 -->
@@ -131,6 +131,7 @@
 									<!-- "reference" タグを除いて他のタグだけを指定 -->
 									<api-tags>users,items</api-tags>
 								</globalProperties>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 							</configOptions>
 						</configuration>
 					</execution>
@@ -150,8 +151,8 @@
 						</goals>
 						<phase>generate-sources</phase>
 						<configuration>
-							<nodeVersion>v20.0.0</nodeVersion>
-							<npmVersion>10.0.0</npmVersion>
+							<nodeVersion>v20.19.5</nodeVersion>
+							<npmVersion>10.9.1</npmVersion>
 							<workingDirectory>../openapi-spec</workingDirectory>
 							<installDirectory>../openapi-spec</installDirectory>
 						</configuration>
@@ -164,7 +165,7 @@
 					 	</goals>
 					 	<phase>generate-sources</phase>
 					 	<configuration>
-					 		<arguments>ci</arguments>
+					 		<arguments>i</arguments>
 					 		<workingDirectory>../openapi-spec</workingDirectory>
 					 	</configuration>
 					 </execution>
