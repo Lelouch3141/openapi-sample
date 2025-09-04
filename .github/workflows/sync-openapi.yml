@@ -44,11 +44,16 @@ jobs:
           cd backend
           mvn generate-sources
 
-      # githubpages用にupload
+      - name: Prepare artifact directory
+        run: |
+          mkdir ./pages_artifact
+          cp ./docs/index.html ./pages_artifact/
+
+      # 2. 作成した一時ディレクトリをアップロード対象として指定する
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./docs/index.html
+          path: ./pages_artifact
 
       - name: Create PR (backend)
         uses: peter-evans/create-pull-request@v6
