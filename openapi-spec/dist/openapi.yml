@@ -18,7 +18,7 @@ paths:
       summary: ユーザー一覧取得
       description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
       tags:
-        - user
+        - users
       responses:
         '200':
           description: OK
@@ -33,7 +33,7 @@ paths:
       summary: ユーザー登録
       description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
       tags:
-        - user
+        - users
       requestBody:
         required: true
         content:
@@ -53,7 +53,7 @@ paths:
       summary: ユーザー詳細取得
       description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
       tags:
-        - user
+        - users
       parameters:
         - name: id
           in: path
@@ -72,7 +72,7 @@ paths:
       summary: ユーザー更新
       description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
       tags:
-        - user
+        - users
       parameters:
         - name: id
           in: path
@@ -97,7 +97,7 @@ paths:
       summary: ユーザー削除
       description: ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
       tags:
-        - user
+        - users
       parameters:
         - name: id
           in: path
@@ -125,6 +125,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Items'
+  /_references/dummy:
+    get:
+      operationId: dummy
+      summary: dummy
+      description: 型定義の参照用のpath定義。
+      tags:
+        - ignore
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  greeting:
+                    $ref: '#/components/schemas/Greeting'
 components:
   securitySchemes:
     bearerAuth:
@@ -164,6 +181,25 @@ components:
           description: 年齢
           type: integer
           example: 20
+        license:
+          description: 資格
+          type: string
+          example: 運転免許
+    Greeting:
+      description: あいさつ
+      type: integer
+      enum:
+        - 0
+        - 1
+        - 2
+      x-enum-varnames:
+        - good_morning
+        - hello
+        - good_knight
+      x-enum-descriptions:
+        - おはよう
+        - こんにちは
+        - おやすみ
     Gender:
       title: Gender
       description: 性別
