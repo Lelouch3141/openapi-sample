@@ -68,7 +68,7 @@ jobs:
       - name: Generate code (React)
         run: |
           cd react-repo/openapi-spec
-          npm ci
+          npm i
           npm run generate-code
 
       - name: Create PR (React)
