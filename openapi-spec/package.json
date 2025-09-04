@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "redocly build-docs openapi.yml -o dist/index.html && redocly bundle openapi.yml -o dist/openapi.yml"
+    "docs": "redocly build-docs openapi.yml -o ../docs/index.html && redocly bundle openapi.yml -o dist/openapi.yml"
   },
   "keywords": [],
   "author": "",
