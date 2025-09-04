@@ -18,6 +18,13 @@ jobs:
         id: datetime
         run: echo "now=$(date '+%Y%m%d-%H%M%S')" >> $GITHUB_OUTPUT
 
+      - name: Get commit message
+        id: commitmsg
+        run: |
+          first_line=$(echo "${{ github.event.head_commit.message }}" | head -n1)
+          sanitized=$(echo "$first_line" | sed -E 's/\s*\(#([0-9]+)\)//')
+          echo "title=$sanitized" >> $GITHUB_OUTPUT
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
@@ -45,8 +52,9 @@ jobs:
           branch: feature/update-generated-sources-${{ steps.datetime.outputs.now }}
           title: "update: generated-sources (${{ steps.commitmsg.outputs.title }})"
           body: |
-            openapiの定義更新を行い、apiとmodelのコードを自動生成しました。
-            backendのopenapi定義の更新がdevelopにマージされたタイミングで発火しています。
+            apiとmodelのコードを自動生成しました。
+            ${{ steps.commitmsg.outputs.title }}
+            作成時刻：${{ steps.datetime.outputs.now }}
 
   sync-front:
     runs-on: ubuntu-latest
@@ -61,7 +69,8 @@ jobs:
         id: commitmsg
         run: |
           first_line=$(echo "${{ github.event.head_commit.message }}" | head -n1)
-          echo "title=$first_line" >> $GITHUB_OUTPUT
+          sanitized=$(echo "$first_line" | sed -E 's/\s*\(#([0-9]+)\)//')
+          echo "title=$sanitized" >> $GITHUB_OUTPUT
 
       - name: Checkout React repo
         uses: actions/checkout@v4
@@ -92,4 +101,5 @@ jobs:
           title: "update: openapi (${{ steps.commitmsg.outputs.title }})"
           body: |
             openapiの定義更新を行い、apiとmodelのコードを自動生成しました。
-            backendのopenapi定義の更新がdevelopにマージされたタイミングで発火しています。
+            ${{ steps.commitmsg.outputs.title }}
+            作成時刻：${{ steps.datetime.outputs.now }}
