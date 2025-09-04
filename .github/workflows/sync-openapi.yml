@@ -29,7 +29,18 @@ jobs:
       - name: Run Maven build (Java + npm codegen)
         run: |
           cd backend
-          mvn -B clean package
+          mvn generate-sources
+
+      - name: Commit generated sources
+        run: |
+          cd backend
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add generated-sources
+          git diff --cached --quiet || git commit -m "chore: update generated sources"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   sync-react:
     runs-on: ubuntu-latest
@@ -59,6 +70,7 @@ jobs:
       - name: Generate code (React)
         run: |
           cd react-repo/openapi-spec
+          npm install -g npm@latest
           npm ci
           npm run generate-code
 
