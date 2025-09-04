@@ -46,3 +46,7 @@ properties:
         description: 保障期間
         type: integer
         examle: 2
+      car:
+        description: 車
+        type: string
+        example: 'DAYS'
