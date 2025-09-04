@@ -34,13 +34,11 @@ jobs:
       - name: Commit generated sources
         run: |
           cd backend
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git add generated-sources
-          git diff --cached --quiet || git commit -m "chore: update generated sources"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "update: generated sources"
+          git push https://x-access-token:${{ secrets.GH_PAT }}@github.com/Lelouch3141/openapi-sample.git HEAD:master
 
   sync-react:
     runs-on: ubuntu-latest
