@@ -131,6 +131,7 @@
 									<!-- "reference" タグを除いて他のタグだけを指定 -->
 									<api-tags>users,items</api-tags>
 								</globalProperties>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
 							</configOptions>
 						</configuration>
 					</execution>

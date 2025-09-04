@@ -20,7 +20,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * 性別
  */
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2025-09-04T10:01:04.741371500+09:00[Asia/Tokyo]", comments = "Generator version: 7.6.0")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", comments = "Generator version: 7.6.0")
 public enum Gender {
   
   /**
