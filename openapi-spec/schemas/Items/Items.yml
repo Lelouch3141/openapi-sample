@@ -10,6 +10,10 @@ properties:
     description: 総商品数
     type: integer
     example: 2
+  timeStamp:
+    description: timeStamp
+    type: string
+    example: '20201010-10:00:10'
   items:
     description: 商品一覧
     type: array
