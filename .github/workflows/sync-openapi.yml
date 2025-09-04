@@ -44,6 +44,12 @@ jobs:
           cd backend
           mvn generate-sources
 
+      # githubpages用にupload
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./docs/index.html
+
       - name: Create PR (backend)
         uses: peter-evans/create-pull-request@v6
         with:
@@ -103,3 +109,18 @@ jobs:
             openapiの定義更新を行い、apiとmodelのコードを自動生成しました。
             ${{ steps.commitmsg.outputs.title }}
             作成時刻：${{ steps.datetime.outputs.now }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: backend-generate
+    # デプロイに必要な権限を付与
+    permissions:
+      pages: write
+      id-token: write
+    # デプロイ環境を指定
+    environment:
+      name: github-pages
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
