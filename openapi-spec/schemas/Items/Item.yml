@@ -30,7 +30,7 @@ properties:
       - name
       - country
     properties:
-      name:
+      makerName:
         description: メーカー名
         type: string
         example: 新進気鋭のメーカーさん
