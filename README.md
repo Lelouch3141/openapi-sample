@@ -1,8 +1,9 @@
 # openAPI 導入手順/運用手順
 
 ## このリポジトリについて
-openAPI導入のサンプルです。
-backendはspringboot(Java,maven)、frontendはReact(typescript, axios)想定のサンプルを置いています。
+
+openAPI 導入のサンプルです。
+backend は springboot(Java,maven)、frontend は React(typescript, axios)想定のサンプルを置いています。
 まだドキュメントは殴り書き程度なことにご留意ください。
 
 ## 前提
@@ -197,56 +198,56 @@ backendはspringboot(Java,maven)、frontendはReact(typescript, axios)想定の�
 
 - openapi-generator の適用
 - 自動生成されたコード
-    ```ts
-    /**
-     * ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
-     * @summary ユーザー登録
-     * @param {UserApiCreateUserRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof UserApi
-     */
-    public createUser(requestParameters: UserApiCreateUserRequest, options?: RawAxiosRequestConfig) {
-        return UserApiFp(this.configuration).createUser(requestParameters.user, options).then((request) => request(this.axios, this.basePath));
-    }
-    /**
-     * 
-    * @export
-    * @interface User
-    */
-    export interface User {
-        /**
-         * ユーザーID
-        * @type {number}
-        * @memberof User
-        */
-        'id'?: number;
-        /**
-         * 氏名
-        * @type {string}
-        * @memberof User
-        */
-        'name': string;
-        /**
-         * メールアドレス
-        * @type {string}
-        * @memberof User
-        */
-        'email': string;
-        /**
-         * 
-        * @type {Gender}
-        * @memberof User
-        */
-        'gender'?: Gender;
-        /**
-         * 年齢
-        * @type {number}
-        * @memberof User
-        */
-        'age'?: number;
-    }
-    ```
+  ```ts
+  /**
+   * ユーザーの一覧を取得します。指定されたパラメータでフィルターします。
+   * @summary ユーザー登録
+   * @param {UserApiCreateUserRequest} requestParameters Request parameters.
+   * @param {*} [options] Override http request option.
+   * @throws {RequiredError}
+   * @memberof UserApi
+   */
+  public createUser(requestParameters: UserApiCreateUserRequest, options?: RawAxiosRequestConfig) {
+      return UserApiFp(this.configuration).createUser(requestParameters.user, options).then((request) => request(this.axios, this.basePath));
+  }
+  /**
+   *
+  * @export
+  * @interface User
+  */
+  export interface User {
+      /**
+       * ユーザーID
+      * @type {number}
+      * @memberof User
+      */
+      'id'?: number;
+      /**
+       * 氏名
+      * @type {string}
+      * @memberof User
+      */
+      'name': string;
+      /**
+       * メールアドレス
+      * @type {string}
+      * @memberof User
+      */
+      'email': string;
+      /**
+       *
+      * @type {Gender}
+      * @memberof User
+      */
+      'gender'?: Gender;
+      /**
+       * 年齢
+      * @type {number}
+      * @memberof User
+      */
+      'age'?: number;
+  }
+  ```
 - http request の実装例(手作業)
 
   - axios parameter creator
@@ -290,15 +291,13 @@ backendはspringboot(Java,maven)、frontendはReact(typescript, axios)想定の�
 - 設定値
 
 ```json
-
 {
-    "withSeparateModelsAndApi": true, // タグごとに整理
-    "useSingleRequestParameter": true, //引数を object にまとめる
-    "stringEnums": true, //文字列の列挙型を enum で管理
-    "apiPackage": "api",　// http リクエストのコードの出力パス
-    "modelPackage": "models" //型定義のコードの出力パス
+  "withSeparateModelsAndApi": true, // タグごとに整理
+  "useSingleRequestParameter": true, //引数を object にまとめる
+  "stringEnums": true, //文字列の列挙型を enum で管理
+  "apiPackage": "api", // http リクエストのコードの出力パス
+  "modelPackage": "models" //型定義のコードの出力パス
 }
-
 ```
 
 - mock-server の実行
@@ -312,6 +311,7 @@ backendはspringboot(Java,maven)、frontendはReact(typescript, axios)想定の�
 
 - (参考)https://openapi-generator.tech/docs/generators/csharp
 - HTTP リクエスト(自動生成されたコード)
+
   ```csharp
   public interface IItemsApiSync : IApiAccessor
       {
@@ -400,7 +400,7 @@ backendはspringboot(Java,maven)、frontendはReact(typescript, axios)想定の�
 2. 仕様書として出力
 3. 各使用先で最新を取得
    - Git の submodule
-   - 静的ホスティングしてdownload(do)
+   - 静的ホスティングして download(do)
 4. 各使用先でコード生成(用意したコマンドを叩くのみ)
 
 ### 仕様書の生成
@@ -418,9 +418,9 @@ backendはspringboot(Java,maven)、frontendはReact(typescript, axios)想定の�
   - paths/：エンドポイントの定義
   - schamas/：型定義
 
-
 ## todo
-- openapiの記法のみに絞った解説
+
+- openapi の記法のみに絞った解説
   - 基本編
     - tags
     - paths
@@ -440,17 +440,18 @@ backendはspringboot(Java,maven)、frontendはReact(typescript, axios)想定の�
   - ref
   - enum
   - error
-  - requestやresponseで使わない型定義
+  - request や response で使わない型定義
   - websocket
-- htmlの管理
+- html の管理
   - redoc
-    - bundleの観点からredocが良い
+    - bundle の観点から redoc が良い
   - swagger-ui
   - download button
   - http request sample
 - preview
-- GUIは余裕があれば
-- READMEの用意
+- GUI は余裕があれば
+- README の用意
 - sample_code
   - c sharp
-- postmanの恩恵
+- postman の恩恵
+- apidog
