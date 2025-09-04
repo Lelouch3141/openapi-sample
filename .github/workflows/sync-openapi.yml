@@ -67,7 +67,7 @@ jobs:
 
       - name: Generate code (React)
         run: |
-          cd react-repo/openapi-spec
+          cd react-repo/frontend
           npm i
           npm run generate-code
 
