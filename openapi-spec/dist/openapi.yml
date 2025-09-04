@@ -208,14 +208,20 @@ components:
         - 0
         - 1
         - 2
+        - 3
+        - 4
       x-enum-varnames:
         - male
         - female
         - others
+        - evolution
+        - monster
       x-enum-descriptions:
         - 男性
         - 女性
         - それ以外
+        - 進化系
+        - 化物
     Item:
       title: Item
       description: 商品
@@ -249,14 +255,18 @@ components:
             - name
             - country
           properties:
-            name:
+            makerName:
               description: メーカー名
               type: string
               example: 新進気鋭のメーカーさん
-            country:
-              description: 国
+            countryMadeBy:
+              description: 製造国
               type: string
               example: 日本
+            warrantyPeriodMonth:
+              description: 保障期間
+              type: integer
+              examle: 2
     Items:
       title: Items
       description: 商品リスト
@@ -269,6 +279,10 @@ components:
           description: 総商品数
           type: integer
           example: 2
+        timeStamp:
+          description: timeStamp
+          type: string
+          example: 20201010-10:00:10
         items:
           description: 商品一覧
           type: array
