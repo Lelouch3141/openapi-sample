@@ -38,6 +38,10 @@ properties:
         description: 製造国
         type: string
         example: 日本
+      countryMadeState:
+        description: 製造州
+        type: string
+        example: 日本
       warrantyPeriodMonth:
         description: 保障期間
         type: integer
