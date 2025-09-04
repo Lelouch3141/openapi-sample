@@ -36,7 +36,17 @@ public enum Gender {
   /**
    * それ以外
    */
-  others(2);
+  others(2),
+  
+  /**
+   * 進化系
+   */
+  evolution(3),
+  
+  /**
+   * 化物
+   */
+  monster(4);
 
   private Integer value;
 
