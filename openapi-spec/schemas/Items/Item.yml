@@ -30,11 +30,11 @@ properties:
       - name
       - country
     properties:
-      name:
+      makerName:
         description: メーカー名
         type: string
         example: 新進気鋭のメーカーさん
-      country:
-        description: 国
+      countryMadeBy:
+        description: 製造国
         type: string
         example: 日本
