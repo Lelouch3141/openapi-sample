@@ -46,3 +46,7 @@ properties:
         description: 保障期間
         type: integer
         examle: 2
+      receiptId:
+        description: 領収書ID
+        type: integer
+        example: 1
