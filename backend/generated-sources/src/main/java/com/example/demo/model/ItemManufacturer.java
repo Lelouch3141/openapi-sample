@@ -24,60 +24,92 @@ import jakarta.annotation.Generated;
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen", comments = "Generator version: 7.6.0")
 public class ItemManufacturer {
 
-  private String name;
+  private String makerName;
 
-  private String country;
+  private String countryMadeBy;
 
-  public ItemManufacturer() {
-    super();
-  }
+  private String countryMadeState;
 
-  /**
-   * Constructor with only required parameters
-   */
-  public ItemManufacturer(String name, String country) {
-    this.name = name;
-    this.country = country;
-  }
+  private Integer warrantyPeriodMonth;
 
-  public ItemManufacturer name(String name) {
-    this.name = name;
+  public ItemManufacturer makerName(String makerName) {
+    this.makerName = makerName;
     return this;
   }
 
   /**
    * メーカー名
-   * @return name
+   * @return makerName
   */
-  @NotNull 
-  @Schema(name = "name", example = "新進気鋭のメーカーさん", description = "メーカー名", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("name")
-  public String getName() {
-    return name;
+  
+  @Schema(name = "makerName", example = "新進気鋭のメーカーさん", description = "メーカー名", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("makerName")
+  public String getMakerName() {
+    return makerName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setMakerName(String makerName) {
+    this.makerName = makerName;
   }
 
-  public ItemManufacturer country(String country) {
-    this.country = country;
+  public ItemManufacturer countryMadeBy(String countryMadeBy) {
+    this.countryMadeBy = countryMadeBy;
     return this;
   }
 
   /**
-   * 国
-   * @return country
+   * 製造国
+   * @return countryMadeBy
   */
-  @NotNull 
-  @Schema(name = "country", example = "日本", description = "国", requiredMode = Schema.RequiredMode.REQUIRED)
-  @JsonProperty("country")
-  public String getCountry() {
-    return country;
+  
+  @Schema(name = "countryMadeBy", example = "日本", description = "製造国", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("countryMadeBy")
+  public String getCountryMadeBy() {
+    return countryMadeBy;
   }
 
-  public void setCountry(String country) {
-    this.country = country;
+  public void setCountryMadeBy(String countryMadeBy) {
+    this.countryMadeBy = countryMadeBy;
+  }
+
+  public ItemManufacturer countryMadeState(String countryMadeState) {
+    this.countryMadeState = countryMadeState;
+    return this;
+  }
+
+  /**
+   * 製造州
+   * @return countryMadeState
+  */
+  
+  @Schema(name = "countryMadeState", example = "日本", description = "製造州", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("countryMadeState")
+  public String getCountryMadeState() {
+    return countryMadeState;
+  }
+
+  public void setCountryMadeState(String countryMadeState) {
+    this.countryMadeState = countryMadeState;
+  }
+
+  public ItemManufacturer warrantyPeriodMonth(Integer warrantyPeriodMonth) {
+    this.warrantyPeriodMonth = warrantyPeriodMonth;
+    return this;
+  }
+
+  /**
+   * 保障期間
+   * @return warrantyPeriodMonth
+  */
+  
+  @Schema(name = "warrantyPeriodMonth", description = "保障期間", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("warrantyPeriodMonth")
+  public Integer getWarrantyPeriodMonth() {
+    return warrantyPeriodMonth;
+  }
+
+  public void setWarrantyPeriodMonth(Integer warrantyPeriodMonth) {
+    this.warrantyPeriodMonth = warrantyPeriodMonth;
   }
 
   @Override
@@ -89,21 +121,25 @@ public class ItemManufacturer {
       return false;
     }
     ItemManufacturer itemManufacturer = (ItemManufacturer) o;
-    return Objects.equals(this.name, itemManufacturer.name) &&
-        Objects.equals(this.country, itemManufacturer.country);
+    return Objects.equals(this.makerName, itemManufacturer.makerName) &&
+        Objects.equals(this.countryMadeBy, itemManufacturer.countryMadeBy) &&
+        Objects.equals(this.countryMadeState, itemManufacturer.countryMadeState) &&
+        Objects.equals(this.warrantyPeriodMonth, itemManufacturer.warrantyPeriodMonth);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, country);
+    return Objects.hash(makerName, countryMadeBy, countryMadeState, warrantyPeriodMonth);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ItemManufacturer {\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    country: ").append(toIndentedString(country)).append("\n");
+    sb.append("    makerName: ").append(toIndentedString(makerName)).append("\n");
+    sb.append("    countryMadeBy: ").append(toIndentedString(countryMadeBy)).append("\n");
+    sb.append("    countryMadeState: ").append(toIndentedString(countryMadeState)).append("\n");
+    sb.append("    warrantyPeriodMonth: ").append(toIndentedString(warrantyPeriodMonth)).append("\n");
     sb.append("}");
     return sb.toString();
   }
