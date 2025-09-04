@@ -28,6 +28,8 @@ public class Items {
 
   private Integer totalCount;
 
+  private String timeStamp;
+
   @Valid
   private List<@Valid Item> items = new ArrayList<>();
 
@@ -61,6 +63,26 @@ public class Items {
 
   public void setTotalCount(Integer totalCount) {
     this.totalCount = totalCount;
+  }
+
+  public Items timeStamp(String timeStamp) {
+    this.timeStamp = timeStamp;
+    return this;
+  }
+
+  /**
+   * timeStamp
+   * @return timeStamp
+  */
+  
+  @Schema(name = "timeStamp", example = "20201010-10:00:10", description = "timeStamp", requiredMode = Schema.RequiredMode.NOT_REQUIRED)
+  @JsonProperty("timeStamp")
+  public String getTimeStamp() {
+    return timeStamp;
+  }
+
+  public void setTimeStamp(String timeStamp) {
+    this.timeStamp = timeStamp;
   }
 
   public Items items(List<@Valid Item> items) {
@@ -101,12 +123,13 @@ public class Items {
     }
     Items items = (Items) o;
     return Objects.equals(this.totalCount, items.totalCount) &&
+        Objects.equals(this.timeStamp, items.timeStamp) &&
         Objects.equals(this.items, items.items);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(totalCount, items);
+    return Objects.hash(totalCount, timeStamp, items);
   }
 
   @Override
@@ -114,6 +137,7 @@ public class Items {
     StringBuilder sb = new StringBuilder();
     sb.append("class Items {\n");
     sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
+    sb.append("    timeStamp: ").append(toIndentedString(timeStamp)).append("\n");
     sb.append("    items: ").append(toIndentedString(items)).append("\n");
     sb.append("}");
     return sb.toString();

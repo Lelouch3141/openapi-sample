@@ -73,7 +73,7 @@ public interface ItemsApi {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
-                    String exampleString = "{ \"totalCount\" : 2, \"items\" : [ { \"price\" : 5980, \"name\" : \"新世代ゲーム機\", \"id\" : 101, \"explanation\" : \"最強です\", \"manufacturer\" : { \"country\" : \"日本\", \"name\" : \"新進気鋭のメーカーさん\" } }, { \"price\" : 5980, \"name\" : \"新世代ゲーム機\", \"id\" : 101, \"explanation\" : \"最強です\", \"manufacturer\" : { \"country\" : \"日本\", \"name\" : \"新進気鋭のメーカーさん\" } } ] }";
+                    String exampleString = "{ \"timeStamp\" : \"20201010-10:00:10\", \"totalCount\" : 2, \"items\" : [ { \"price\" : 5980, \"name\" : \"新世代ゲーム機\", \"id\" : 101, \"explanation\" : \"最強です\", \"manufacturer\" : { \"countryMadeBy\" : \"日本\", \"warrantyPeriodMonth\" : 0, \"makerName\" : \"新進気鋭のメーカーさん\" } }, { \"price\" : 5980, \"name\" : \"新世代ゲーム機\", \"id\" : 101, \"explanation\" : \"最強です\", \"manufacturer\" : { \"countryMadeBy\" : \"日本\", \"warrantyPeriodMonth\" : 0, \"makerName\" : \"新進気鋭のメーカーさん\" } } ] }";
                     ApiUtil.setExampleResponse(request, "application/json", exampleString);
                     break;
                 }
