@@ -6,13 +6,16 @@ enum:
   - 1
   - 2
   - 3
+  - 4
 x-enum-varnames:
   - male
   - female
   - others
   - evolution
+  - monster
 x-enum-descriptions:
   - 男性
   - 女性
   - それ以外
   - 進化系
+  - 化物
