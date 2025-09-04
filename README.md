@@ -455,3 +455,4 @@ backend は springboot(Java,maven)、frontend は React(typescript, axios)想定
   - c sharp
 - postman の恩恵
 - apidog
+  - webscocket
