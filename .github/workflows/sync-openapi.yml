@@ -68,7 +68,6 @@ jobs:
       - name: Generate code (React)
         run: |
           cd react-repo/openapi-spec
-          npm install -g npm@latest
           npm ci
           npm run generate-code
 
